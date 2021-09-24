@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Faker\Factory as Faker;
 class userseeder extends Seeder
 {
     /**
@@ -20,11 +21,12 @@ class userseeder extends Seeder
         //     'email'=> Str::random(15).'@gmail.com',
         //     'password' => Hash::make(Str::random(10)),
         // ]);
+        $faker=Faker::create();
         foreach (range(1,100)as $value){
             DB::table('users')->insert([
-                'name'=>Str::random(10),
-                'email'=> Str::random(15).'@gmail.com',
-                'password' => Hash::make(Str::random(10)),
+                'name'=>$faker->name(),
+                'email'=> $faker->unique()->safeEmail(),
+                'password' => Hash::make($faker->password()),
             ]);    
 
         }
